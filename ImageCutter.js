@@ -25,17 +25,15 @@ class ImageCutter {
     cut(width, height, x = 0, y = 0) {
         if (!this.domImage) return null;
 
-        if (!this.virtualCanvas) {
-            this.virtualCanvas = document.createElement('canvas');
-            this.virtualCanvas.width = width;
-            this.virtualCanvas.height = height;
-        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
 
-        const context = this.virtualCanvas.getContext('2d');
+        const context = canvas.getContext('2d');
         context.drawImage(this.domImage, x, y);
 
         // Save canvas as an image so we can use it in future use.
-        return this.virtualCanvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+        return canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
     }
 
     cutAll(width, height) {
